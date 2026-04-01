@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELA Resource Bank — McIntosh County Schools</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --teal: #1a7a6e;
+    --teal-light: #25a99a;
+    --gold: #c9941a;
+    --gold-light: #f0b429;
+    --cream: #faf8f4;
+    --warm-white: #ffffff;
+    --text-dark: #1a1a2e;
+    --text-mid: #4a4a6a;
+    --text-light: #7a7a9a;
+    --border: #e2ddd8;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 24px rgba(15,31,61,0.08);
+    --shadow-lg: 0 8px 40px rgba(15,31,61,0.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(26,122,110,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(201,148,26,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 32px 36px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  /* SEARCH PANEL */
+  .search-panel {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+
+  .search-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-mid);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .search-examples {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 14px;
+    line-height: 1.7;
+  }
+
+  .search-examples span {
+    display: inline-block;
+    background: #f0ede8;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 2px 3px 2px 0;
+    font-style: italic;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .search-examples span:hover {
+    background: #e0ddd8;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 90px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text-dark);
+    background: #fdfcfa;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    line-height: 1.5;
+  }
+
+  textarea:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(26,122,110,0.1);
+  }
+
+  .search-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .qty-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-mid);
+    font-weight: 500;
+  }
+
+  .qty-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .qty-btn {
+    width: 32px; height: 32px;
+    background: #f5f2ee;
+    border: none;
+    font-size: 18px;
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 300;
+  }
+
+  .qty-btn:hover { background: #ebe7e1; }
+
+  .qty-display {
+    width: 36px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    background: white;
+    border-left: 1.5px solid var(--border);
+    border-right: 1.5px solid var(--border);
+  }
+
+  .generate-btn {
+    margin-left: auto;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(26,122,110,0.25);
+  }
+
+  .generate-btn:hover {
+    background: var(--teal-light);
+    box-shadow: 0 4px 18px rgba(26,122,110,0.35);
+  }
+
+  .generate-btn:active { transform: translateY(1px); }
+
+  .generate-btn:disabled {
+    background: #a0b8b5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  /* LOADING */
+  .loading-state {
+    display: none;
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  .loading-state.active { display: block; }
+
+  .loading-dots {
+    display: inline-flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .loading-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: dotPulse 1.4s ease-in-out infinite;
+  }
+
+  .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes dotPulse {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  .loading-text {
+    font-size: 14px;
+    color: var(--text-light);
+    font-weight: 400;
+  }
+
+  /* RESULTS HEADER */
+  .results-header {
+    display: none;
+    margin-bottom: 20px;
+  }
+
+  .results-header.active { display: flex; align-items: center; justify-content: space-between; }
+
+  .results-meta {
+    font-size: 13px;
+    color: var(--text-light);
+  }
+
+  .results-meta strong {
+    color: var(--text-mid);
+    font-weight: 600;
+  }
+
+  .clear-btn {
+    font-size: 12px;
+    color: var(--text-light);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .clear-btn:hover { color: var(--text-mid); border-color: #c0bbb5; background: #f5f2ee; }
+
+  /* RESOURCE CARDS */
+  .resources-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .resource-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    animation: cardIn 0.4s ease both;
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .resource-card:nth-child(2) { animation-delay: 0.1s; }
+  .resource-card:nth-child(3) { animation-delay: 0.2s; }
+
+  .card-header {
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    align-items: center;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    padding: 3px 9px;
+  }
+
+  .badge-type-strategy {
+    background: rgba(15,31,61,0.08);
+    color: var(--navy);
+  }
+
+  .badge-type-task {
+    background: rgba(26,122,110,0.1);
+    color: var(--teal);
+  }
+
+  .badge-dok {
+    background: rgba(201,148,26,0.12);
+    color: #8a6400;
+  }
+
+  .badge-standard {
+    background: #f0ede8;
+    color: var(--text-mid);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-top: 6px;
+    line-height: 1.3;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .icon-btn {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: #f8f5f1;
+    color: var(--text-mid);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    font-size: 15px;
+  }
+
+  .icon-btn:hover { background: #ede9e3; border-color: #c5c0b8; }
+  .icon-btn.active { background: var(--teal); border-color: var(--teal); color: white; }
+
+  /* CARD BODY — editable content */
+  .card-body {
+    padding: 20px 24px;
+  }
+
+  .editable-content {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text-dark);
+    min-height: 60px;
+    border-radius: 8px;
+    padding: 12px 14px;
+    border: 1.5px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+    white-space: pre-wrap;
+  }
+
+  .editable-content:focus {
+    outline: none;
+    border-color: var(--teal);
+    background: #f9fffe;
+  }
+
+  .editable-content[contenteditable="true"]:not(:focus) {
+    border-color: #e8e4de;
+    background: #fdfcfa;
+  }
+
+  .editable-hint {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 8px;
+    display: none;
+  }
+
+  .resource-card:hover .editable-hint { display: block; }
+
+  /* CARD FOOTER */
+  .card-footer {
+    padding: 12px 24px;
+    background: #faf8f5;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .footer-btn {
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    padding: 7px 16px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.2px;
+  }
+
+  .btn-copy {
+    background: white;
+    border: 1.5px solid var(--border);
+    color: var(--text-mid);
+  }
+
+  .btn-copy:hover { background: #f0ede8; border-color: #c5c0b8; }
+  .btn-copy.copied { background: var(--teal); border-color: var(--teal); color: white; }
+
+  .btn-print {
+    background: var(--navy);
+    border: 1.5px solid var(--navy);
+    color: white;
+  }
+
+  .btn-print:hover { background: #1a2f5a; }
+
+  /* ERROR */
+  .error-state {
+    display: none;
+    background: #fff5f5;
+    border: 1px solid #fcc;
+    border-radius: 10px;
+    padding: 20px 24px;
+    color: #c0392b;
+    font-size: 14px;
+  }
+
+  .error-state.active { display: block; }
+
+  /* EMPTY */
+  .empty-state {
+    text-align: center;
+    padding: 60px 0 20px;
+    color: var(--text-light);
+  }
+
+  .empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  .empty-state p {
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  /* COACHING PANEL */
+  .coaching-panel {
+    border-top: 1px solid var(--border);
+    background: #fffbf2;
+  }
+
+  .coaching-toggle {
+    width: 100%;
+    padding: 11px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #8a6400;
+    letter-spacing: 0.3px;
+    text-align: left;
+    transition: background 0.15s;
+  }
+
+  .coaching-toggle:hover { background: #fff4d6; }
+
+  .coaching-toggle .toggle-icon {
+    font-size: 14px;
+    transition: transform 0.2s;
+  }
+
+  .coaching-toggle.open .toggle-icon { transform: rotate(180deg); }
+
+  .coaching-body {
+    display: none;
+    padding: 0 24px 18px;
+  }
+
+  .coaching-body.open { display: block; }
+
+  .coaching-loading {
+    font-size: 13px;
+    color: var(--text-light);
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .coaching-loading-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: dotPulse 1.2s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  .mistake-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0e8d0;
+  }
+
+  .mistake-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .mistake-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #c9941a;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 3px;
+  }
+
+  .mistake-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text-dark);
+  }
+
+  .mistake-fix {
+    font-size: 12px;
+    color: var(--teal);
+    font-weight: 500;
+    margin-top: 3px;
+  }
+
+  /* PRINT */
+  @media print {
+    header, .search-panel, .results-header, .card-actions, .card-footer, .editable-hint { display: none !important; }
+    body { background: white; }
+    .resource-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; margin-bottom: 20px; }
+    .editable-content { border: none !important; background: white !important; }
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.8rem; }
+    main { padding: 24px 16px 60px; }
+    .search-panel { padding: 20px; }
+    .card-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-eyebrow">McIntosh County Schools · Curriculum &amp; Instruction</div>
+    <h1>ELA Resource Bank</h1>
+    <p>Describe what you need in plain language — a standard, a skill, a student challenge. The bank generates ready-to-use strategies and tasks.</p>
+  </div>
+</header>
+
+<main>
+  <div class="search-panel">
+    <label class="search-label" for="requestInput">What do you need?</label>
+    <div class="search-examples">
+      Try: 
+      <span onclick="setExample(this)">inferencing strategies for 8th grade</span>
+      <span onclick="setExample(this)">RL.9-10.3 character analysis task DOK 3</span>
+      <span onclick="setExample(this)">argumentative writing stems for struggling writers</span>
+      <span onclick="setExample(this)">close reading activity for informational text grade 6</span>
+      <span onclick="setExample(this)">vocabulary strategy for context clues</span>
+    </div>
+    <textarea id="requestInput" placeholder="e.g. 'I need something for teaching theme in 7th grade — my students are struggling to connect evidence to the theme statement'"></textarea>
+    <div class="search-controls">
+      <div class="qty-control">
+        <span>Resources:</span>
+        <div class="qty-buttons">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <div class="qty-display" id="qtyDisplay">2</div>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+      <button class="generate-btn" id="generateBtn" onclick="generateResources()">Generate Resources</button>
+    </div>
+  </div>
+
+  <div class="results-header" id="resultsHeader">
+    <div class="results-meta" id="resultsMeta"></div>
+    <button class="clear-btn" onclick="clearResults()">Clear results</button>
+  </div>
+
+  <div class="error-state" id="errorState"></div>
+  <div class="loading-state" id="loadingState">
+    <div class="loading-dots">
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+    </div>
+    <div class="loading-text" id="loadingText">Building your resources…</div>
+  </div>
+
+  <div id="resultsContainer">
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">📚</div>
+      <p>Describe what your students need or what standard you're teaching — you don't need to be precise.</p>
+    </div>
+  </div>
+</main>
+
+<script>
+  let qty = 2;
+
+  function changeQty(delta) {
+    qty = Math.min(5, Math.max(1, qty + delta));
+    document.getElementById('qtyDisplay').textContent = qty;
+  }
+
+  function setExample(el) {
+    document.getElementById('requestInput').value = el.textContent;
+    document.getElementById('requestInput').focus();
+  }
+
+  function clearResults() {
+    document.getElementById('resultsContainer').innerHTML = `
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">📚</div>
+        <p>Describe what your students need or what standard you're teaching — you don't need to be precise.</p>
+      </div>`;
+    document.getElementById('resultsHeader').classList.remove('active');
+    document.getElementById('errorState').classList.remove('active');
+  }
+
+  async function generateResources() {
+    const request = document.getElementById('requestInput').value.trim();
+    if (!request) {
+      document.getElementById('requestInput').focus();
+      return;
+    }
+
+    const btn = document.getElementById('generateBtn');
+    const loading = document.getElementById('loadingState');
+    const error = document.getElementById('errorState');
+    const container = document.getElementById('resultsContainer');
+    const resultsHeader = document.getElementById('resultsHeader');
+    const resultsMeta = document.getElementById('resultsMeta');
+
+    btn.disabled = true;
+    loading.classList.add('active');
+    error.classList.remove('active');
+    container.innerHTML = '';
+    resultsHeader.classList.remove('active');
+
+    const loadingMessages = [
+      'Interpreting your request…',
+      'Aligning to Georgia standards…',
+      'Building classroom-ready resources…',
+      'Calibrating DOK levels…'
+    ];
+    let msgIdx = 0;
+    const msgInterval = setInterval(() => {
+      msgIdx = (msgIdx + 1) % loadingMessages.length;
+      document.getElementById('loadingText').textContent = loadingMessages[msgIdx];
+    }, 1800);
+
+    const systemPrompt = `You are an expert Georgia ELA curriculum specialist (grades 6–12) with deep knowledge of the Georgia Standards of Excellence (GSE), Georgia Milestones assessment architecture, DOK levels, and evidence-based instructional strategies.
+
+A teacher has described what they need. Your job is to generate ${qty} high-quality, classroom-ready ELA instructional resource(s).
+
+IMPORTANT RULES:
+- Infer the standard, grade band, and skill even from vague descriptions. A teacher saying "inferencing in 8th grade" means RL.8.1 / RI.8.1. A teacher saying "theme in 7th grade" means RL.7.2. Be smart about this.
+- Each resource must be either an INSTRUCTIONAL STRATEGY (with step-by-step teacher directions) or an EXEMPLAR STUDENT TASK (what the student actually does/produces).
+- Alternate between the two types when generating multiple resources.
+- Assign a DOK level (1, 2, 3, or 4) to each resource based on the cognitive demand required.
+- Resources must be practical, specific, and immediately usable — not generic. Include actual sentence frames, sample questions, or task language.
+- If the teacher mentions struggling students, scaffold accordingly. If they mention extension or DOK 3/4, stretch accordingly.
+
+Respond ONLY with valid JSON. No preamble, no explanation, no markdown fences. The JSON must be an array of objects with this exact shape:
+
+[
+  {
+    "type": "strategy" | "task",
+    "title": "Short, descriptive name (5–8 words)",
+    "standard": "e.g. RL.7.2 or RI.8.1 (your best inference)",
+    "grade_band": "e.g. Grade 7 or Grades 9-10",
+    "dok": 1 | 2 | 3 | 4,
+    "content": "Full, detailed, ready-to-use resource text. For strategies: include Purpose, Materials (if any), Step-by-step directions numbered, and a sample prompt or sentence frame. For tasks: include the full task prompt the student sees, success criteria, and a sample sentence starter or scaffold. Be generous with detail — teachers should be able to use this tomorrow.",
+    "mistakes": [
+      {
+        "label": "Very short name for the mistake (3–5 words)",
+        "description": "1–2 sentence plain-language description of the mistake and why it falls short instructionally.",
+        "fix": "One sharp sentence: what to do instead."
+      }
+    ]
+  }
+]
+
+The mistakes array must have exactly 2–3 items. These should be real, specific instructional errors teachers commonly make with this standard or skill — not generic advice. The example Alicia gave: teachers ask students to IDENTIFY theme instead of ANALYZE how the author develops it. That's the kind of specificity required.`;
+
+    try {
+      const response = await fetch('https://anthropic-proxy.arosenbaum.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 4000,
+          system: systemPrompt,
+          messages: [{ role: 'user', content: request }]
+        })
+      });
+
+      clearInterval(msgInterval);
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const rawText = data.content.map(b => b.text || '').join('').trim();
+      const clean = rawText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+      const resources = JSON.parse(clean);
+
+      loading.classList.remove('active');
+      btn.disabled = false;
+
+      if (!resources || !resources.length) {
+        throw new Error('No resources returned.');
+      }
+
+      resultsMeta.innerHTML = `<strong>${resources.length} resource${resources.length > 1 ? 's' : ''}</strong> for: "${request.length > 60 ? request.slice(0, 60) + '…' : request}"`;
+      resultsHeader.classList.add('active');
+
+      const grid = document.createElement('div');
+      grid.className = 'resources-grid';
+
+      resources.forEach((res, i) => {
+        const card = buildCard(res, i);
+        grid.appendChild(card);
+      });
+
+      container.appendChild(grid);
+
+    } catch (err) {
+      clearInterval(msgInterval);
+      loading.classList.remove('active');
+      btn.disabled = false;
+      error.textContent = `Something went wrong: ${err.message}. Please try again.`;
+      error.classList.add('active');
+    }
+  }
+
+  function buildCard(res, idx) {
+    const typeBadgeClass = res.type === 'strategy' ? 'badge-type-strategy' : 'badge-type-task';
+    const typeLabel = res.type === 'strategy' ? '📋 Strategy' : '✏️ Student Task';
+
+    const card = document.createElement('div');
+    card.className = 'resource-card';
+    card.style.animationDelay = `${idx * 0.1}s`;
+
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <div class="card-meta">
+            <span class="badge ${typeBadgeClass}">${typeLabel}</span>
+            <span class="badge badge-dok">DOK ${res.dok}</span>
+            <span class="badge badge-standard">${res.standard} · ${res.grade_band}</span>
+          </div>
+          <div class="card-title">${res.title}</div>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" title="Toggle edit mode" onclick="toggleEdit(this, ${idx})">✏️</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="editable-content" id="content-${idx}" contenteditable="false">${res.content}</div>
+        <div class="editable-hint">Click the pencil icon to edit this resource</div>
+      </div>
+      <div class="coaching-panel">
+        <button class="coaching-toggle" onclick="toggleCoaching(this, ${idx})">
+          <span>⚠️</span> Common Teaching Mistakes <span class="toggle-icon">▾</span>
+        </button>
+        <div class="coaching-body" id="coaching-${idx}">
+          ${buildMistakes(res.mistakes)}
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="footer-btn btn-copy" onclick="copyCard(${idx}, this)">Copy Text</button>
+        <button class="footer-btn btn-print" onclick="printCard(${idx}, '${escapeForAttr(res.title)}', '${res.standard}', '${res.grade_band}', ${res.dok}, '${res.type}')">Print Card</button>
+      </div>`;
+
+    return card;
+  }
+
+  function buildMistakes(mistakes) {
+    if (!mistakes || !mistakes.length) return '<p style="font-size:13px;color:#aaa;padding:8px 0;">No common mistakes available.</p>';
+    return mistakes.map(m => `
+      <div class="mistake-item">
+        <div class="mistake-label">⚠ ${m.label}</div>
+        <div class="mistake-text">${m.description}</div>
+        <div class="mistake-fix">✓ Instead: ${m.fix}</div>
+      </div>`).join('');
+  }
+
+  function toggleCoaching(btn, idx) {
+    btn.classList.toggle('open');
+    document.getElementById(`coaching-${idx}`).classList.toggle('open');
+  }
+
+  function escapeForAttr(str) {
+    return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+  }
+
+  function toggleEdit(btn, idx) {
+    const content = document.getElementById(`content-${idx}`);
+    const isEditing = content.contentEditable === 'true';
+    content.contentEditable = isEditing ? 'false' : 'true';
+    btn.classList.toggle('active', !isEditing);
+    if (!isEditing) content.focus();
+  }
+
+  function copyCard(idx, btn) {
+    const content = document.getElementById(`content-${idx}`).innerText;
+    navigator.clipboard.writeText(content).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy Text'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function printCard(idx, title, standard, gradeBand, dok, type) {
+    const content = document.getElementById(`content-${idx}`).innerHTML;
+    const typeLabel = type === 'strategy' ? 'Instructional Strategy' : 'Student Task';
+    const win = window.open('', '_blank');
+    win.document.write(`<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>${title}</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'DM Sans', sans-serif; padding: 40px; max-width: 700px; margin: 0 auto; color: #1a1a2e; }
+  .card-header { border-bottom: 2px solid #0f1f3d; padding-bottom: 14px; margin-bottom: 20px; }
+  .eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 6px; }
+  h1 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #0f1f3d; margin-bottom: 8px; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge { font-size: 11px; font-weight: 600; border-radius: 4px; padding: 3px 9px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .b1 { background: #e8ecf5; color: #0f1f3d; }
+  .b2 { background: #fef3d0; color: #8a6400; }
+  .b3 { background: #f0ede8; color: #555; text-transform: none; letter-spacing: 0; font-weight: 500; font-size: 12px; }
+  .content { font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
+  .footer { margin-top: 32px; font-size: 11px; color: #aaa; border-top: 1px solid #eee; padding-top: 10px; }
+</style>
+</head><body>
+<div class="card-header">
+  <div class="eyebrow">McIntosh County Schools · ELA Resource Bank</div>
+  <h1>${title}</h1>
+  <div class="badges">
+    <span class="badge b1">${typeLabel}</span>
+    <span class="badge b2">DOK ${dok}</span>
+    <span class="badge b3">${standard} · ${gradeBand}</span>
+  </div>
+</div>
+<div class="content">${content}</div>
+<div class="footer">Generated by MCS ELA Resource Bank · Georgia Standards of Excellence</div>
+</body></html>`);
+    win.document.close();
+    win.focus();
+    setTimeout(() => win.print(), 500);
+  }
+
+  document.getElementById('requestInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) generateResources();
+  });
+</script>
+</body>
+</html>
